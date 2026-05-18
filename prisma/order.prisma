@@ -1,0 +1,34 @@
+enum OrderStatus {
+    PENDING
+    PROCESSING
+    COMPLETED
+    CANCELLED
+}
+
+model Order {
+    id String @id @default(uuid())
+     userId String
+     user User @relation(fields: [userId], references: [id])
+
+     totalAmount Float
+     status OrderStatus @default(PENDING)
+
+    orderItems OrderItem[]
+
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+    id String @id @default(uuid())
+    orderId String
+    order Order @relation(fields: [orderId], references: [id])
+
+    productId String
+    product Product @relation(fields: [productId], references: [id])
+
+    quantity Int
+    price Float
+    createAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

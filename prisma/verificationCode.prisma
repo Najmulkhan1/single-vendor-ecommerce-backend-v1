@@ -1,0 +1,9 @@
+model verificationCode {
+    id       String   @id @default(ulid())
+    code     String
+    expireAt DateTime
+
+    userId   String   @unique
+    // onDelete: Cascade ekhanei thakte hobe
+    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,21 @@
+enum UserType {
+  ADMIN
+  USER
+}
+
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  name             String?
+  password         String
+  age              Int?
+  isVerified       Boolean           @default(false)
+  userType         UserType          @default(USER)
+  create_at        DateTime          @default(now())
+  updated_at       DateTime          @updatedAt
+
+  // Ekhane kono @relation thakbe na!
+  verificationCode verificationCode?
+
+  order Order[]
+}
